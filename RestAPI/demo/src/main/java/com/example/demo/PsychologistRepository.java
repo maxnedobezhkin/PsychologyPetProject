@@ -7,4 +7,7 @@ import org.springframework.stereotype.Repository;
 public interface PsychologistRepository 
 		extends JpaRepository<Psychologist, String> {
 
+//	void save(Contacts contacts);
+//
+
 }

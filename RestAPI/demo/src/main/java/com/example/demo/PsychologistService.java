@@ -1,8 +1,6 @@
 package com.example.demo;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +19,18 @@ public class PsychologistService {
 	}
 	
 	public List<Psychologist> getPsychologist() {
+		
 		return psychologistRepository.findAll();
 	}
+	
+	
+	public void addPsychologist(Psychologist psychologist) {
+		System.out.println(psychologist);
+		psychologistRepository.save(psychologist);
+	}
+
+//	public void addContacts(Contacts contacts) {
+//		// TODO Auto-generated method stub
+//		psychologistRepository.save(contacts);
+//	}
 }
