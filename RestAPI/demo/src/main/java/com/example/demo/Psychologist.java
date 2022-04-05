@@ -23,6 +23,7 @@ import javax.persistence.SecondaryTables;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+
 @Entity
 @Table(name="doctors")
 public class Psychologist {	
