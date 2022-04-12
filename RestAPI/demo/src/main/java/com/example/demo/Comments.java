@@ -53,12 +53,4 @@ public class Comments {
 	public String toString() {
 		return "Comments [id=" + id + ", comments=" + comments + "]";
 	}
-
-
-	
-
-	
-	
-	
-
 }

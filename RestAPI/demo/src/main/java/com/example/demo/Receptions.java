@@ -57,7 +57,4 @@ public class Receptions {
 	public String toString() {
 		return "Receptions [id=" + id + ", address=" + address + ", url=" + url + "]";
 	}
-	
-	
-
 }

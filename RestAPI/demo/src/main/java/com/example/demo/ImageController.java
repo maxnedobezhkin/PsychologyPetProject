@@ -1,6 +1,5 @@
 package com.example.demo;
 
-
 import java.sql.SQLException;
 import java.util.Optional;
 
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(name = "/img")
 public class ImageController {
-	
 	@Autowired
 	private ImageRepository imageRepository;
 	
@@ -29,5 +27,4 @@ public class ImageController {
 		}
 		return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(imageBytes);
 	}
-	
 }
