@@ -1,13 +1,13 @@
 package com.example.demo;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface PsychologistRepository 
-		extends JpaRepository<Psychologist, Integer> {
+public interface ImageRepository extends JpaRepository<Image, Integer>{
 
-//	void save(Contacts contacts);
-//
+	Optional<Image> findById(Long id);
 
 }
