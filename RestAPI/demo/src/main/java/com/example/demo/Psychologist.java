@@ -42,18 +42,25 @@ public class Psychologist {
 	private String country;
 	private String region;
 	private String therapies;
-	private String[] comments;
+	
+	@ManyToOne
+	@JoinColumn(name="comments_id")
+	private Comments comments;
 	
 	@OneToOne
 	@JoinColumn(name="contacts_id")
 	private Contacts contacts;
+	
+	@OneToOne
+	@JoinColumn(name="receptions_id")
+	private Receptions receptions;
 
 	public Psychologist() {
 		super();
 	}
 
-	public Psychologist(int id, String name, String country, String region, String therapies, String[] comments,
-			Contacts contacts) {
+	public Psychologist(int id, String name, String country, String region, String therapies, Comments comments,
+			Contacts contacts, Receptions receptions) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -62,10 +69,11 @@ public class Psychologist {
 		this.therapies = therapies;
 		this.comments = comments;
 		this.contacts = contacts;
+		this.receptions = receptions;
 	}
 
-	public Psychologist(String name, String country, String region, String therapies, String[] comments,
-			Contacts contacts) {
+	public Psychologist(String name, String country, String region, String therapies, Comments comments,
+			Contacts contacts, Receptions receptions) {
 		super();
 		this.name = name;
 		this.country = country;
@@ -73,6 +81,7 @@ public class Psychologist {
 		this.therapies = therapies;
 		this.comments = comments;
 		this.contacts = contacts;
+		this.receptions = receptions;
 	}
 
 	public int getId() {
@@ -115,11 +124,11 @@ public class Psychologist {
 		this.therapies = therapies;
 	}
 
-	public String[] getComments() {
+	public Comments getComments() {
 		return comments;
 	}
 
-	public void setComments(String[] comments) {
+	public void setComments(Comments comments) {
 		this.comments = comments;
 	}
 
@@ -131,14 +140,21 @@ public class Psychologist {
 		this.contacts = contacts;
 	}
 
+	public Receptions getReceptions() {
+		return receptions;
+	}
+
+	public void setReceptions(Receptions receptions) {
+		this.receptions = receptions;
+	}
+
 	@Override
 	public String toString() {
 		return "Psychologist [id=" + id + ", name=" + name + ", country=" + country + ", region=" + region
-				+ ", therapies=" + therapies + ", comments=" + Arrays.toString(comments) + ", contacts=" + contacts
-				+ "]";
+				+ ", therapies=" + therapies + ", comments=" + comments + ", contacts=" + contacts + ", receptions="
+				+ receptions + "]";
 	}
 
-	
 	
 	
 }
