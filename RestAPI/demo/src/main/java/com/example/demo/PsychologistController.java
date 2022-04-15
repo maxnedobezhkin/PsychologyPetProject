@@ -27,7 +27,7 @@ public class PsychologistController {
 	
 	@PostMapping
 	private void registerPsychologist(@RequestBody Psychologist psychologist) {
-		System.out.println(psychologist);
+//		System.out.println(psychologist);
 		psychologistService.addPsychologist(psychologist);
 	}
 	
