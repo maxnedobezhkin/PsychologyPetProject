@@ -6,6 +6,7 @@ import java.util.Arrays;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 
 @Entity
@@ -14,6 +15,7 @@ public class Image {
 	@Id 
 	private Long id;
 	
+//	@Lob
 	private Blob imageContent;
 
 	public Image() {
