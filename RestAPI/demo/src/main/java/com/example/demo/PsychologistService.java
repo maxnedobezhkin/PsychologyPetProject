@@ -25,7 +25,6 @@ public class PsychologistService {
 	
 	
 	public void addPsychologist(Psychologist psychologist) {
-//		System.out.println(psychologist);
 		if (psychologistRepository.findById(psychologist.getId()).isPresent()) {
 			throw new IllegalStateException("this id is taken");
 		}
