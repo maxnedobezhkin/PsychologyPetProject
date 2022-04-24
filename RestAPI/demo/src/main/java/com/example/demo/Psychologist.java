@@ -43,15 +43,15 @@ public class Psychologist {
 	private String region;
 	private String therapies;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="comments_id")
 	private Comments comments;
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="contacts_id")
 	private Contacts contacts;
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="receptions_id")
 	private Receptions receptions;
 
