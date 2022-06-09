@@ -17,7 +17,6 @@ public class PsychologistController {
 	
 	private final PsychologistService psychologistService;
 	
-	
 	@Autowired
 	public PsychologistController(PsychologistService psychologistService) {
 		this.psychologistService = psychologistService;
@@ -35,7 +34,6 @@ public class PsychologistController {
 		if (offset != null) {
 			offsetValue = offset.intValue();
 		}
-		System.out.println(limitValue + " " + offsetValue);
 		return psychologistService.getPsychologist(limitValue, offsetValue);
 	}
 	

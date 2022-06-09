@@ -20,7 +20,6 @@ public class PsychologistService {
 		this.psychologistRepository = psychologistRepository;
 	}
 	
-	
 	public List<Psychologist> getPsychologist(int limit, int offset) {
 		Pageable pageable = PageRequest.of(offset, limit);
 		return psychologistRepository.findAll(pageable).getContent();
