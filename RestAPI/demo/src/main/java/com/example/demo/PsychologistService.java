@@ -4,6 +4,8 @@ package com.example.demo;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 //	OFFSET LIMIT!!!
@@ -18,11 +20,10 @@ public class PsychologistService {
 		this.psychologistRepository = psychologistRepository;
 	}
 	
-	public List<Psychologist> getPsychologist() {
-		
-		return psychologistRepository.findAll();
+	public List<Psychologist> getPsychologist(int limit, int offset) {
+		Pageable pageable = PageRequest.of(offset, limit);
+		return psychologistRepository.findAll(pageable).getContent();
 	}
-	
 	
 	public void addPsychologist(Psychologist psychologist) {
 		if (psychologistRepository.findById(psychologist.getId()).isPresent()) {
