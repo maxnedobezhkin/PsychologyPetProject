@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.service;
 
 
 import java.util.List;
@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import com.example.demo.entities.Psychologist;
+import com.example.demo.repositories.PsychologistRepository;
 
 //	OFFSET LIMIT!!!
 
