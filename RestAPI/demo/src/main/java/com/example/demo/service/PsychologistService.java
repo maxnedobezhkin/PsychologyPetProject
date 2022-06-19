@@ -46,6 +46,8 @@ public class PsychologistService {
 	public List<Psychologist> findPsychologistByRegion(String region) {
 		return psychologistRepository.findByRegion(region);
 	}
+	
+	
 
 //	public void addContacts(Contacts contacts) {
 //		// TODO Auto-generated method stub

@@ -1,7 +1,9 @@
 package com.example.demo.controllers;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,13 +43,23 @@ public class PsychologistController {
 	}
 	
 	@GetMapping("/find")
-	public List<Psychologist> findPsychologist(@RequestParam(name = "name", required = false) String name, 
+	public Set<Psychologist> findPsychologist(@RequestParam(name = "name", required = false) String name, 
 											   @RequestParam(name = "lastName", required = false) String lastName,
 											   @RequestParam(name = "region", required = false) String region) {
-		List<Psychologist> responseList = new ArrayList<>();
-		responseList.addAll(psychologistService.findPsychologistByName(name));
-		responseList.addAll(psychologistService.findPsychologistByLastName(lastName));
-		responseList.addAll(psychologistService.findPsychologistByRegion(region));
+		List<Psychologist> responseTempList = new ArrayList<>();
+		responseTempList.addAll(psychologistService.findPsychologistByName(name));
+		responseTempList.addAll(psychologistService.findPsychologistByLastName(lastName));
+		responseTempList.addAll(psychologistService.findPsychologistByRegion(region));
+		
+		Set<Psychologist> responseList = new HashSet<>();
+		for (Psychologist psychologist : responseTempList) {
+			if ((name == null || (name != null && psychologist.getName().equals(name))) &&
+				(lastName == null || (lastName != null && psychologist.getLastName().equals(lastName))) &&
+				(region == null || (region != null && psychologist.getRegion().equals(region)))) {
+				
+				responseList.add(psychologist);
+			}
+		}
 		return responseList;
 	}
 	
