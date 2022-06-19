@@ -39,6 +39,7 @@ public class Psychologist {
 //	)
 	private int id;
 	private String name;
+	private String lastName;
 	private String country;
 	private String region;
 	private String therapies;
@@ -59,11 +60,12 @@ public class Psychologist {
 		super();
 	}
 
-	public Psychologist(int id, String name, String country, String region, String therapies, Comments comments,
-			Contacts contacts, Receptions receptions) {
+	public Psychologist(int id, String name, String lastName, String country, String region, String therapies,
+			Comments comments, Contacts contacts, Receptions receptions) {
 		super();
 		this.id = id;
 		this.name = name;
+		this.lastName = lastName;
 		this.country = country;
 		this.region = region;
 		this.therapies = therapies;
@@ -72,10 +74,11 @@ public class Psychologist {
 		this.receptions = receptions;
 	}
 
-	public Psychologist(String name, String country, String region, String therapies, Comments comments,
-			Contacts contacts, Receptions receptions) {
+	public Psychologist(String name, String lastName, String country, String region, String therapies,
+			Comments comments, Contacts contacts, Receptions receptions) {
 		super();
 		this.name = name;
+		this.lastName = lastName;
 		this.country = country;
 		this.region = region;
 		this.therapies = therapies;
@@ -98,6 +101,14 @@ public class Psychologist {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	public String getCountry() {
@@ -150,10 +161,12 @@ public class Psychologist {
 
 	@Override
 	public String toString() {
-		return "Psychologist [id=" + id + ", name=" + name + ", country=" + country + ", region=" + region
-				+ ", therapies=" + therapies + ", comments=" + comments + ", contacts=" + contacts + ", receptions="
-				+ receptions + "]";
+		return "Psychologist [id=" + id + ", name=" + name + ", lastName=" + lastName + ", country=" + country
+				+ ", region=" + region + ", therapies=" + therapies + ", comments=" + comments + ", contacts="
+				+ contacts + ", receptions=" + receptions + "]";
 	}
+
+	
 
 	
 	

@@ -1,9 +1,9 @@
 package com.example.demo.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -40,7 +40,16 @@ public class PsychologistController {
 		return psychologistService.getPsychologist(limitValue, offsetValue);
 	}
 	
-
+	@GetMapping("/find")
+	public List<Psychologist> findPsychologist(@RequestParam(name = "name", required = false) String name, 
+											   @RequestParam(name = "lastName", required = false) String lastName,
+											   @RequestParam(name = "region", required = false) String region) {
+		List<Psychologist> responseList = new ArrayList<>();
+		responseList.addAll(psychologistService.findPsychologistByName(name));
+		responseList.addAll(psychologistService.findPsychologistByLastName(lastName));
+		responseList.addAll(psychologistService.findPsychologistByRegion(region));
+		return responseList;
+	}
 	
 	@PostMapping
 	private void registerPsychologist(@RequestBody Psychologist psychologist) {

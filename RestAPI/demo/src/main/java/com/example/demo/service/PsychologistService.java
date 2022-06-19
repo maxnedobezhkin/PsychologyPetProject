@@ -34,6 +34,18 @@ public class PsychologistService {
 		}
 		psychologistRepository.save(psychologist);
 	}
+	
+	public List<Psychologist> findPsychologistByName(String name) {
+		return psychologistRepository.findByName(name);
+	}
+	
+	public List<Psychologist> findPsychologistByLastName(String lastName) {
+		return psychologistRepository.findByLastName(lastName);
+	}
+	
+	public List<Psychologist> findPsychologistByRegion(String region) {
+		return psychologistRepository.findByRegion(region);
+	}
 
 //	public void addContacts(Contacts contacts) {
 //		// TODO Auto-generated method stub
