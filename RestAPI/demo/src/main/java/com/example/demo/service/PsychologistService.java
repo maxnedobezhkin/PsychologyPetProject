@@ -11,8 +11,6 @@ import org.springframework.stereotype.Service;
 import com.example.demo.entities.Psychologist;
 import com.example.demo.repositories.PsychologistRepository;
 
-//	OFFSET LIMIT!!!
-
 @Service
 public class PsychologistService {
 	

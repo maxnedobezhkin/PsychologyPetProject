@@ -64,7 +64,7 @@ public class PsychologistController {
 	}
 	
 	@PostMapping
-	private void registerPsychologist(@RequestBody Psychologist psychologist) {
+	private void savePsychologist(@RequestBody Psychologist psychologist) {
 		psychologistService.addPsychologist(psychologist);
 	}
 	
