@@ -17,6 +17,7 @@ public class RegistrationService {
 		this.psychologistRegistrationRepository = psychologistRegistrationRepository;
 	}
 	
+	
 	public void addPsychologist(PsychologistRegistrationData psychologistRegistrationData) {
 		if (psychologistRegistrationRepository.findByLogin(psychologistRegistrationData.getLogin()) != null) {
 			throw new IllegalStateException("this login is taken");
