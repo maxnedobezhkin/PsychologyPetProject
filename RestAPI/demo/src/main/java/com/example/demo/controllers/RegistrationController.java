@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.entities.Patient;
+import com.example.demo.entities.PatientRegistrationData;
 import com.example.demo.entities.PsychologistRegistrationData;
 import com.example.demo.service.RegistrationService;
 
@@ -24,5 +26,10 @@ public class RegistrationController {
 	@PostMapping("/psychologist")
 	private void registrationPsychologist(@RequestBody PsychologistRegistrationData psychologistRegistrationData) {
 		registrationService.addPsychologist(psychologistRegistrationData);
+	}
+	
+	@PostMapping("/patient")
+	private void registrationPatient(@RequestBody PatientRegistrationData patientRegistrationData) {
+		registrationService.addPatient(patientRegistrationData);
 	}
 }
