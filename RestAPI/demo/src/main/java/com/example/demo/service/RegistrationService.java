@@ -28,7 +28,7 @@ public class RegistrationService {
 	}
 	
 	
-	public void addPsychologist(PsychologistRegistrationData psychologistRegistrationData) {
+	public void addPsychologistRegistrationData(PsychologistRegistrationData psychologistRegistrationData) {
 		if (psychologistRegistrationRepository.findByLogin(psychologistRegistrationData.getLogin()) != null) {
 			throw new IllegalStateException("this login is taken");
 		}
@@ -41,5 +41,13 @@ public class RegistrationService {
 		patient.setLastname(patientRegistrationData.getLastname());
 		
 		patientRegistrationRepository.save(patientRegistrationData);
+	}
+	
+	public boolean checkTakenPsychologistLogin(String login) {
+		if (psychologistRegistrationRepository.findByLogin(login).isPresent()) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 }

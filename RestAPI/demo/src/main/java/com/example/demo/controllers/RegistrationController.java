@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.entities.Patient;
@@ -29,17 +30,25 @@ public class RegistrationController {
 	}
 	
 	@PostMapping("/psychologist")
-	private void registrationPsychologist(@RequestBody PsychologistRegistrationData psychologistRegistrationData) {
-		Psychologist psychologist;
-		if (psychologistService.findPsychologistById(psychologistRegistrationData.getId()).isPresent()) {
-			psychologist = psychologistService.findPsychologistById(psychologistRegistrationData.getId()).get();
-		} else {
-			throw new NullPointerException("no psychologist");
+	private void registrationPsychologist(@RequestParam(name = "name") String name,
+										  @RequestParam(name = "lastname") String lastname,
+										  @RequestParam(name = "login") String login,
+										  @RequestParam(name = "password") String password) {
+		Psychologist psychologist = new Psychologist();
+		PsychologistRegistrationData psychologistRegistrationData = new PsychologistRegistrationData();
+		
+		// Место для проверки логина
+		
+		if (registrationService.checkTakenPsychologistLogin(login)) {
+			throw new IllegalArgumentException("This login is taken");
 		}
-		if (psychologist != null) {
-			psychologistRegistrationData.setPsychologist(psychologist);
-		}
-		registrationService.addPsychologist(psychologistRegistrationData);
+		psychologistRegistrationData.setLogin(login);
+		psychologistRegistrationData.setPassword(password);
+		psychologist.setName(name);
+		psychologist.setLastName(lastname);
+		psychologistRegistrationData.setPsychologist(psychologist);
+		psychologistService.addPsychologist(psychologist);
+		registrationService.addPsychologistRegistrationData(psychologistRegistrationData);
 	}
 	
 	@PostMapping("/patient")
