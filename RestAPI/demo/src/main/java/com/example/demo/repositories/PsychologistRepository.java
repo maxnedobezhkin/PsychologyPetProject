@@ -14,6 +14,7 @@ public interface PsychologistRepository
 	List<Psychologist> findByName(String name);
 	List<Psychologist> findByLastName(String lastName);
 	List<Psychologist> findByRegion(String region);
+	Psychologist findTopByOrderByIdDesc();
 	
 //	void save(Contacts contacts);
 //

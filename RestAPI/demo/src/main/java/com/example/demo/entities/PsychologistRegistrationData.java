@@ -1,7 +1,11 @@
 package com.example.demo.entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -11,11 +15,14 @@ import javax.persistence.Table;
 @Table(name = "psychologist_registration_data")
 public class PsychologistRegistrationData {
 	@Id
+//	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	private String login;
 	private String password;
 	@OneToOne
-	@MapsId
+//	(cascade = CascadeType.ALL)
+	@JoinColumn(name="psychologist_id")
+//	@MapsId
 	private Psychologist psychologist;
 	
 	public PsychologistRegistrationData() {

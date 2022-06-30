@@ -34,19 +34,20 @@ public class RegistrationController {
 										  @RequestParam(name = "lastname") String lastname,
 										  @RequestParam(name = "login") String login,
 										  @RequestParam(name = "password") String password) {
-		Psychologist psychologist = new Psychologist();
-		PsychologistRegistrationData psychologistRegistrationData = new PsychologistRegistrationData();
-		
 		// Место для проверки логина
 		
 		if (registrationService.checkTakenPsychologistLogin(login)) {
 			throw new IllegalArgumentException("This login is taken");
 		}
+		Psychologist psychologist = new Psychologist();
+		PsychologistRegistrationData psychologistRegistrationData = new PsychologistRegistrationData();
 		psychologistRegistrationData.setLogin(login);
 		psychologistRegistrationData.setPassword(password);
+		psychologist.setId(registrationService.takeLastPsychologistId() + 1);
 		psychologist.setName(name);
 		psychologist.setLastName(lastname);
 		psychologistRegistrationData.setPsychologist(psychologist);
+		psychologistRegistrationData.setId(psychologist.getId());
 		psychologistService.addPsychologist(psychologist);
 		registrationService.addPsychologistRegistrationData(psychologistRegistrationData);
 	}

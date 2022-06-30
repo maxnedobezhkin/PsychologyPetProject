@@ -28,6 +28,7 @@ import javax.persistence.Table;
 @Table(name="doctors")
 public class Psychologist {	
 	@Id
+//	@GeneratedValue(strategy = GenerationType.AUTO)
 //	@SequenceGenerator (
 //			name = "psychologist_name",
 //			sequenceName = "psychologist_name",
