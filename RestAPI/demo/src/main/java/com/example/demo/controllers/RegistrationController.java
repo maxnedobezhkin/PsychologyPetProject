@@ -36,7 +36,7 @@ public class RegistrationController {
 										  @RequestParam(name = "password") String password) {
 		// Место для проверки логина
 		
-		if (registrationService.checkTakenPsychologistLogin(login)) {
+		if (registrationService.checkTakenLogin(login)) {
 			throw new IllegalArgumentException("This login is taken");
 		}
 		Psychologist psychologist = new Psychologist();
@@ -46,6 +46,9 @@ public class RegistrationController {
 		psychologist.setId(registrationService.takeLastPsychologistId() + 1);
 		psychologist.setName(name);
 		psychologist.setLastName(lastname);
+		/*
+		 * Место для установки email или телефона
+		 */
 		psychologistRegistrationData.setPsychologist(psychologist);
 		psychologistRegistrationData.setId(psychologist.getId());
 		psychologistService.addPsychologist(psychologist);
@@ -53,7 +56,29 @@ public class RegistrationController {
 	}
 	
 	@PostMapping("/patient")
-	private void registrationPatient(@RequestBody PatientRegistrationData patientRegistrationData) {
-		registrationService.addPatient(patientRegistrationData);
+	private void registrationPatient(@RequestParam(name = "name") String name,
+									 @RequestParam(name = "lastname") String lastname,
+									 @RequestParam(name = "login") String login,
+									 @RequestParam(name = "password") String password) {
+		// Место для проверки логина
+		
+		if (registrationService.checkTakenLogin(login)) {
+			throw new IllegalArgumentException("This login is taken");
+		}
+		Patient patient = new Patient();
+		PatientRegistrationData patientRegistrationData = new PatientRegistrationData();
+		patientRegistrationData.setLogin(login);
+		patientRegistrationData.setPassword(password);
+		patient.setId(registrationService.takeLastPsychologistId() + 1);
+		patient.setName(name);
+		patient.setLastname(lastname);
+		/*
+		 * Место для установки email или телефона
+		 */
+		patientRegistrationData.setPatient(patient);
+		patientRegistrationData.setId(patient.getId());
+		registrationService.addPatient(patient);
+		registrationService.addPatientRegistrationData(patientRegistrationData);
 	}
+	
 }

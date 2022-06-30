@@ -15,7 +15,6 @@ import javax.persistence.Table;
 @Table(name = "psychologist_registration_data")
 public class PsychologistRegistrationData {
 	@Id
-//	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	private String login;
 	private String password;

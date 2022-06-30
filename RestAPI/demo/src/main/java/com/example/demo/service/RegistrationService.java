@@ -36,16 +36,17 @@ public class RegistrationService {
 		psychologistRegistrationRepository.save(psychologistRegistrationData);
 	}
 	
-	public void addPatient(PatientRegistrationData patientRegistrationData) {
-		Patient patient = new Patient();
-		patient.setName(patientRegistrationData.getName());
-		patient.setLastname(patientRegistrationData.getLastname());
-		
+	public void addPatient(Patient patient) {
+		patientRepository.save(patient);
+	}
+	
+	public void addPatientRegistrationData(PatientRegistrationData patientRegistrationData) {
 		patientRegistrationRepository.save(patientRegistrationData);
 	}
 	
-	public boolean checkTakenPsychologistLogin(String login) {
-		if (psychologistRegistrationRepository.findByLogin(login).isPresent()) {
+	public boolean checkTakenLogin(String login) {
+		if (psychologistRegistrationRepository.findByLogin(login).isPresent() ||
+				 patientRegistrationRepository.findByLogin(login).isPresent()) {
 			return true;
 		} else {
 			return false;
@@ -53,7 +54,17 @@ public class RegistrationService {
 	}
 	
 	public int takeLastPsychologistId() {
+		if (psychologistRepository.findTopByOrderByIdDesc() == null) {
+			return 0;
+		}
 		return psychologistRepository.findTopByOrderByIdDesc().getId();
+	}
+	
+	public int takeLastPatientId() {
+		if (patientRepository.findTopByOrderByIdDesc() == null) {
+			return 0;
+		}
+		return patientRepository.findTopByOrderByIdDesc().getId();
 	}
 	
 }
