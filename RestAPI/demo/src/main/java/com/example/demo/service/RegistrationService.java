@@ -10,6 +10,7 @@ import com.example.demo.entities.PsychologistRegistrationData;
 import com.example.demo.repositories.PatientRegistrationRepository;
 import com.example.demo.repositories.PatientRepository;
 import com.example.demo.repositories.PsychologistRegistrastionRepository;
+import com.example.demo.repositories.PsychologistRepository;
 
 @Service
 public class RegistrationService {
@@ -23,15 +24,15 @@ public class RegistrationService {
 	private PatientRepository patientRepository;
 	
 	@Autowired
+	private PsychologistRepository psychologistRepository;
+	
+	@Autowired
 	public RegistrationService(PsychologistRegistrastionRepository psychologistRegistrationRepository) {
 		this.psychologistRegistrationRepository = psychologistRegistrationRepository;
 	}
 	
 	
 	public void addPsychologistRegistrationData(PsychologistRegistrationData psychologistRegistrationData) {
-		if (psychologistRegistrationRepository.findByLogin(psychologistRegistrationData.getLogin()) != null) {
-			throw new IllegalStateException("this login is taken");
-		}
 		psychologistRegistrationRepository.save(psychologistRegistrationData);
 	}
 	
@@ -50,4 +51,9 @@ public class RegistrationService {
 			return false;
 		}
 	}
+	
+	public int takeLastPsychologistId() {
+		return psychologistRepository.findTopByOrderByIdDesc().getId();
+	}
+	
 }
