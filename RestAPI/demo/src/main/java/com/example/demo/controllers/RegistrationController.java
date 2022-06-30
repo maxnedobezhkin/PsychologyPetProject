@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.entities.Contacts;
 import com.example.demo.entities.Patient;
 import com.example.demo.entities.PatientRegistrationData;
 import com.example.demo.entities.Psychologist;
@@ -46,9 +47,21 @@ public class RegistrationController {
 		psychologist.setId(registrationService.takeLastPsychologistId() + 1);
 		psychologist.setName(name);
 		psychologist.setLastName(lastname);
-		/*
-		 * Место для установки email или телефона
-		 */
+		
+		if (registrationService.defineLogin(login) == 0) {
+			throw new IllegalArgumentException("Login not phone or email");
+		} else if (registrationService.defineLogin(login) == 1) {
+			Contacts contact = new Contacts();
+			String[] email = {login};
+			contact.setEmails(email);
+			psychologist.setContacts(contact);
+		} else if (registrationService.defineLogin(login) == 2) {
+			Contacts contact = new Contacts();
+			String[] phone = {login};
+			contact.setPhones(phone);
+			psychologist.setContacts(contact);
+		}
+		
 		psychologistRegistrationData.setPsychologist(psychologist);
 		psychologistRegistrationData.setId(psychologist.getId());
 		psychologistService.addPsychologist(psychologist);
@@ -59,9 +72,7 @@ public class RegistrationController {
 	private void registrationPatient(@RequestParam(name = "name") String name,
 									 @RequestParam(name = "lastname") String lastname,
 									 @RequestParam(name = "login") String login,
-									 @RequestParam(name = "password") String password) {
-		// Место для проверки логина
-		
+									 @RequestParam(name = "password") String password) {	
 		if (registrationService.checkTakenLogin(login)) {
 			throw new IllegalArgumentException("This login is taken");
 		}
@@ -72,9 +83,15 @@ public class RegistrationController {
 		patient.setId(registrationService.takeLastPsychologistId() + 1);
 		patient.setName(name);
 		patient.setLastname(lastname);
-		/*
-		 * Место для установки email или телефона
-		 */
+		
+		if (registrationService.defineLogin(login) == 0) {
+			throw new IllegalArgumentException("Login not phone or email");
+		} else if (registrationService.defineLogin(login) == 1) {
+			patient.setEmail(login);
+		} else if (registrationService.defineLogin(login) == 2) {
+			patient.setPhone(login);
+		}
+		
 		patientRegistrationData.setPatient(patient);
 		patientRegistrationData.setId(patient.getId());
 		registrationService.addPatient(patient);

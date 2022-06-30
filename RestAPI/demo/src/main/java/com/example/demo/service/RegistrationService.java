@@ -67,4 +67,16 @@ public class RegistrationService {
 		return patientRepository.findTopByOrderByIdDesc().getId();
 	}
 	
+	public int defineLogin(String login) {
+		String emailPattern = "^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$";
+		String phonePattern = "^((8|\\+7)[\\- ]?)?(\\(?\\d{3}\\)?[\\- ]?)?[\\d\\- ]{7,10}$";
+		if (login.matches(emailPattern)) {
+			return 1;
+		} else if (login.matches(phonePattern)) {
+			return 2;
+		} else {
+			return 0;
+		}
+	}
+	
 }
