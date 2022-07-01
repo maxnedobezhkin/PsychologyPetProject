@@ -11,5 +11,4 @@ public interface PsychologistRegistrastionRepository
 	extends JpaRepository<PsychologistRegistrationData, Integer>{
 
 	Optional<Object> findByLogin(String login);
-//	PsychologistRegistrationData findTopByOrderByIdDesc();
 }

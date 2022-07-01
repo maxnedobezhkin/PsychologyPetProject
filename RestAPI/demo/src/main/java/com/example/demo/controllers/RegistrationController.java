@@ -1,11 +1,19 @@
 package com.example.demo.controllers;
 
 
+
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.entities.Contacts;
@@ -48,14 +56,20 @@ public class RegistrationController {
 		psychologist.setName(name);
 		psychologist.setLastName(lastname);
 		
-		if (registrationService.defineLogin(login) == 0) {
+		enum loginStatus {
+			Incorrect,
+			Email,
+			Phone;
+		}
+		
+		if (registrationService.defineLogin(login) == loginStatus.Incorrect.ordinal()) {
 			throw new IllegalArgumentException("Login not phone or email");
-		} else if (registrationService.defineLogin(login) == 1) {
+		} else if (registrationService.defineLogin(login) == loginStatus.Email.ordinal()) {
 			Contacts contact = new Contacts();
 			String[] email = {login};
 			contact.setEmails(email);
 			psychologist.setContacts(contact);
-		} else if (registrationService.defineLogin(login) == 2) {
+		} else if (registrationService.defineLogin(login) == loginStatus.Phone.ordinal()) {
 			Contacts contact = new Contacts();
 			String[] phone = {login};
 			contact.setPhones(phone);
@@ -68,11 +82,11 @@ public class RegistrationController {
 		registrationService.addPsychologistRegistrationData(psychologistRegistrationData);
 	}
 	
-	@PostMapping("/patient")
+	@PostMapping(value = "/patient", produces = MediaType.APPLICATION_JSON_VALUE)
 	private void registrationPatient(@RequestParam(name = "name") String name,
 									 @RequestParam(name = "lastname") String lastname,
 									 @RequestParam(name = "login") String login,
-									 @RequestParam(name = "password") String password) {	
+									 @RequestParam(name = "password") String password) throws IllegalArgumentException {	
 		if (registrationService.checkTakenLogin(login)) {
 			throw new IllegalArgumentException("This login is taken");
 		}
@@ -84,11 +98,17 @@ public class RegistrationController {
 		patient.setName(name);
 		patient.setLastname(lastname);
 		
-		if (registrationService.defineLogin(login) == 0) {
+		enum loginStatus {
+			Incorrect,
+			Email,
+			Phone;
+		}
+		
+		if (registrationService.defineLogin(login) == loginStatus.Incorrect.ordinal()) {
 			throw new IllegalArgumentException("Login not phone or email");
-		} else if (registrationService.defineLogin(login) == 1) {
+		} else if (registrationService.defineLogin(login) == loginStatus.Email.ordinal()) {
 			patient.setEmail(login);
-		} else if (registrationService.defineLogin(login) == 2) {
+		} else if (registrationService.defineLogin(login) == loginStatus.Phone.ordinal()) {
 			patient.setPhone(login);
 		}
 		
@@ -97,5 +117,7 @@ public class RegistrationController {
 		registrationService.addPatient(patient);
 		registrationService.addPatientRegistrationData(patientRegistrationData);
 	}
+	
+	
 	
 }
