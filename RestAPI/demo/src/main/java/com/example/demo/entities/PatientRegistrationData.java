@@ -1,6 +1,5 @@
 package com.example.demo.entities;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,37 +9,37 @@ import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-
 @Entity
-@Table(name = "psychologist_registration_data")
-public class PsychologistRegistrationData {
+@Table(name = "patient_registration_data")
+public class PatientRegistrationData {
 	@Id
+//	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	private String login;
 	private String password;
-	@OneToOne
-//	(cascade = CascadeType.ALL)
-	@JoinColumn(name="psychologist_id")
-//	@MapsId
-	private Psychologist psychologist;
 	
-	public PsychologistRegistrationData() {
+	@OneToOne
+//	@MapsId
+	@JoinColumn(name="patient_id")
+	private Patient patient;
+
+	public PatientRegistrationData() {
 		super();
 	}
 
-	public PsychologistRegistrationData(int id, String login, String password, Psychologist psychologist) {
+	public PatientRegistrationData(int id, String login, String password, Patient patient) {
 		super();
 		this.id = id;
 		this.login = login;
 		this.password = password;
-		this.psychologist = psychologist;
+		this.patient = patient;
 	}
 
-	public PsychologistRegistrationData(String login, String password, Psychologist psychologist) {
+	public PatientRegistrationData(String login, String password, Patient patient) {
 		super();
 		this.login = login;
 		this.password = password;
-		this.psychologist = psychologist;
+		this.patient = patient;
 	}
 
 	public int getId() {
@@ -67,18 +66,18 @@ public class PsychologistRegistrationData {
 		this.password = password;
 	}
 
-	public Psychologist getPsychologist() {
-		return psychologist;
+	public Patient getPatient() {
+		return patient;
 	}
 
-	public void setPsychologist(Psychologist psychologist) {
-		this.psychologist = psychologist;
+	public void setPatient(Patient patient) {
+		this.patient = patient;
 	}
 
 	@Override
 	public String toString() {
-		return "PsychologistRegistrationData [id=" + id + ", login=" + login + ", password=" + password
-				+ ", psychologist=" + psychologist + "]";
+		return "PatientRegistrationData [id=" + id + ", login=" + login + ", password=" + password + ", patient="
+				+ patient + "]";
 	}
 	
 	
