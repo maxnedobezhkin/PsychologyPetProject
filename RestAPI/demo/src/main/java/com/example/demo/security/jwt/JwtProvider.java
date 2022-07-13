@@ -1,5 +1,6 @@
 package com.example.demo.security.jwt;
 
+import java.security.Key;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Component;
 import com.example.demo.entities.Patient;
 import com.example.demo.entities.PatientRegistrationData;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -54,5 +56,54 @@ public class JwtProvider {
                 .setExpiration(refreshExpiration)
                 .signWith(jwtRefreshSecret)
                 .compact();
+    }
+	
+	/*
+	 * Продублировать два метода выше для авторизации психологов
+	 */
+	
+	public boolean validateAccessToken(@NonNull String accessToken) {
+        return validateToken(accessToken, jwtAccessSecret);
+    }
+
+    public boolean validateRefreshToken(@NonNull String refreshToken) {
+        return validateToken(refreshToken, jwtRefreshSecret);
+    }
+
+    private boolean validateToken(@NonNull String token, @NonNull Key secret) {
+//        try {
+            Jwts.parserBuilder()
+                    .setSigningKey(secret)
+                    .build()
+                    .parseClaimsJws(token);
+            return true;
+//        } catch (ExpiredJwtException expEx) {
+////            log.error("Token expired", expEx);
+//        } catch (UnsupportedJwtException unsEx) {
+////            log.error("Unsupported jwt", unsEx);
+//        } catch (MalformedJwtException mjEx) {
+////            log.error("Malformed jwt", mjEx);
+//        } catch (SignatureException sEx) {
+////            log.error("Invalid signature", sEx);
+//        } catch (Exception e) {
+////            log.error("invalid token", e);
+//        }
+//        return false;
+    }
+
+    public Claims getAccessClaims(@NonNull String token) {
+        return getClaims(token, jwtAccessSecret);
+    }
+
+    public Claims getRefreshClaims(@NonNull String token) {
+        return getClaims(token, jwtRefreshSecret);
+    }
+
+    private Claims getClaims(@NonNull String token, @NonNull Key secret) {
+        return Jwts.parserBuilder()
+                .setSigningKey(secret)
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
     }
 }
