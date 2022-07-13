@@ -10,5 +10,5 @@ import com.example.demo.entities.PsychologistRegistrationData;
 public interface PsychologistRegistrastionRepository
 	extends JpaRepository<PsychologistRegistrationData, Integer>{
 
-	Optional<Object> findByLogin(String login);
+	Optional<PsychologistRegistrationData> findByLogin(String login);
 }

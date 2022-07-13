@@ -12,5 +12,5 @@ import com.example.demo.entities.PatientRegistrationData;
 public interface PatientRegistrationRepository 
 	extends JpaRepository<PatientRegistrationData, Integer> {
 	
-	Optional<Object> findByLogin(String login);
+	Optional<PatientRegistrationData> findByLogin(String login);
 }

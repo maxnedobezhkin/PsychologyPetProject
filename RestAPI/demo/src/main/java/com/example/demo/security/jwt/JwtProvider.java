@@ -5,6 +5,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.Optional;
 
 import javax.crypto.SecretKey;
 
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Component;
 
 import com.example.demo.entities.Patient;
 import com.example.demo.entities.PatientRegistrationData;
+import com.example.demo.entities.User;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -34,12 +36,12 @@ public class JwtProvider {
         this.jwtRefreshSecret = Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtRefreshSecret));
     }
 	
-	public String generateAccessToken(@NonNull PatientRegistrationData user) {
+	public String generateAccessToken(@NonNull Optional<? extends User> user) {
         final LocalDateTime now = LocalDateTime.now();
         final Instant accessExpirationInstant = now.plusMinutes(5).atZone(ZoneId.systemDefault()).toInstant();
         final Date accessExpiration = Date.from(accessExpirationInstant);
         return Jwts.builder()
-                .setSubject(user.getLogin())
+                .setSubject(user.get().getLogin())
                 .setExpiration(accessExpiration)
                 .signWith(jwtAccessSecret)
 //                .claim("roles", user.getRoles())
@@ -47,20 +49,17 @@ public class JwtProvider {
                 .compact();
     }
 	
-	public String generateRefreshToken(@NonNull PatientRegistrationData user) {
+	public String generateRefreshToken(@NonNull Optional<? extends User> user) {
         final LocalDateTime now = LocalDateTime.now();
         final Instant refreshExpirationInstant = now.plusDays(30).atZone(ZoneId.systemDefault()).toInstant();
         final Date refreshExpiration = Date.from(refreshExpirationInstant);
         return Jwts.builder()
-                .setSubject(user.getLogin())
+                .setSubject(user.get().getLogin())
                 .setExpiration(refreshExpiration)
                 .signWith(jwtRefreshSecret)
                 .compact();
     }
-	
-	/*
-	 * Продублировать два метода выше для авторизации психологов
-	 */
+
 	
 	public boolean validateAccessToken(@NonNull String accessToken) {
         return validateToken(accessToken, jwtAccessSecret);
