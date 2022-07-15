@@ -2,6 +2,8 @@ package com.example.demo.controllers;
 
 
 
+import java.util.ArrayList;
+
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -66,12 +68,14 @@ public class RegistrationController {
 			throw new IllegalArgumentException("Login not phone or email");
 		} else if (registrationService.defineLogin(login) == loginStatus.Email.ordinal()) {
 			Contacts contact = new Contacts();
-			String[] email = {login};
+			ArrayList<String> email = new ArrayList<String>();
+			email.add(login);
 			contact.setEmails(email);
 			psychologist.setContacts(contact);
 		} else if (registrationService.defineLogin(login) == loginStatus.Phone.ordinal()) {
 			Contacts contact = new Contacts();
-			String[] phone = {login};
+			ArrayList<String> phone = new ArrayList<String>();
+			phone.add(login);
 			contact.setPhones(phone);
 			psychologist.setContacts(contact);
 		}
