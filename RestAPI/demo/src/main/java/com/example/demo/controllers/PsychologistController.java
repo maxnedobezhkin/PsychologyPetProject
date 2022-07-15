@@ -3,24 +3,37 @@ package com.example.demo.controllers;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.entities.ChangePsychologist;
+import com.example.demo.entities.Patient;
 import com.example.demo.entities.Psychologist;
+import com.example.demo.security.jwt.JwtAuthentication;
+import com.example.demo.security.jwt.JwtFilter;
+import com.example.demo.security.jwt.JwtResponse;
 import com.example.demo.service.PsychologistService;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 @RestController
 @RequestMapping(path = "/api")
 public class PsychologistController {
 	
 	private final PsychologistService psychologistService;
+	
+	@Autowired
+	private JwtFilter jwtFilter;
 	
 	@Autowired
 	public PsychologistController(PsychologistService psychologistService) {
@@ -67,6 +80,17 @@ public class PsychologistController {
 	private void savePsychologist(@RequestBody Psychologist psychologist) {
 		psychologistService.addPsychologist(psychologist);
 	}
+	
+	@PutMapping("/change")
+	private void changeProfile(@RequestBody ChangePsychologist changePsychologist) {
+		String token = changePsychologist.getToken();
+//		String login = 
+	}
+//	
+//	@PutMapping("/change")
+//	private void changeProfile(@RequestBody Patient patient) {
+//		
+//	}
 	
 //	@PostMapping
 //	private void registerContacts(@RequestBody Contacts contacts) {
