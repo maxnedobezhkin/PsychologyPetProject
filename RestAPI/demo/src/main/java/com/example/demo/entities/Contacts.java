@@ -17,8 +17,8 @@ import javax.persistence.Table;
 public class Contacts {
 	@Id
 	private int id;
-	private String[] phones;
-	private String[] emails;
+	private ArrayList<String> phones;
+	private ArrayList<String> emails;
 	private String site;
 	private String telegramm;
 	
@@ -28,7 +28,7 @@ public class Contacts {
 	public Contacts() {
 	}
 
-	public Contacts(int id, String[] phones, String[] emails, String site, String telegramm) {
+	public Contacts(int id, ArrayList<String> phones, ArrayList<String> emails, String site, String telegramm) {
 		super();
 		this.id = id;
 		this.phones = phones;
@@ -37,7 +37,7 @@ public class Contacts {
 		this.telegramm = telegramm;
 	}
 
-	public Contacts(String[] phones, String[] emails, String site, String telegramm) {
+	public Contacts(ArrayList<String> phones, ArrayList<String> emails, String site, String telegramm) {
 		super();
 		this.phones = phones;
 		this.emails = emails;
@@ -53,19 +53,19 @@ public class Contacts {
 		this.id = id;
 	}
 
-	public String[] getPhones() {
+	public ArrayList<String> getPhones() {
 		return phones;
 	}
 
-	public void setPhones(String[] phones) {
+	public void setPhones(ArrayList<String> phones) {
 		this.phones = phones;
 	}
 
-	public String[] getEmails() {
+	public ArrayList<String> getEmails() {
 		return emails;
 	}
 
-	public void setEmails(String[] emails) {
+	public void setEmails(ArrayList<String> emails) {
 		this.emails = emails;
 	}
 
@@ -85,14 +85,9 @@ public class Contacts {
 		this.telegramm = telegramm;
 	}
 
-	
-
 	@Override
 	public String toString() {
-		return "Contacts [id=" + id + ", phones=" + Arrays.toString(phones) + ", emails=" + Arrays.toString(emails)
-				+ ", site=" + site + ", telegramm=" + telegramm;
+		return "Contacts [id=" + id + ", phones=" + phones + ", emails=" + emails + ", site=" + site + ", telegramm="
+				+ telegramm + "]";
 	}
-	
-	
-
 }

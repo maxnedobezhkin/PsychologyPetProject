@@ -13,7 +13,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "psychologist_registration_data")
-public class PsychologistRegistrationData {
+public class PsychologistRegistrationData extends User{
 	@Id
 	private int id;
 	private String login;
@@ -50,19 +50,23 @@ public class PsychologistRegistrationData {
 	public void setId(int id) {
 		this.id = id;
 	}
-
+	
+	@Override
 	public String getLogin() {
 		return login;
 	}
-
+	
+	@Override
 	public void setLogin(String login) {
 		this.login = login;
 	}
-
+	
+	@Override
 	public String getPassword() {
 		return password;
 	}
-
+	
+	@Override
 	public void setPassword(String password) {
 		this.password = password;
 	}
