@@ -84,6 +84,7 @@ public class PsychologistController {
 	@PutMapping("/change")
 	private void changeProfile(@RequestBody ChangePsychologist changePsychologist) {
 		String token = changePsychologist.getToken();
+		
 //		String login = 
 	}
 //	
