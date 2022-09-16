@@ -93,10 +93,5 @@ public class PsychologistController {
 //		
 //	}
 	
-//	@PostMapping
-//	private void registerContacts(@RequestBody Contacts contacts) {
-//		System.out.println(contacts);
-//		psychologistService.addContacts(contacts);
-//	}
 	
 }
